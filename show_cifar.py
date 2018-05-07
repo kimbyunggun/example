@@ -20,7 +20,6 @@ print(img.shape)  # (,3072)
 img = img.reshape([-1,3,32,32])  # 형상을 원래 이미지의 크기로 변형
 img = np.rollaxis(img,1,4)
 
-
 print(img.shape)  # (1,32, 32,3)
 print(np.uint8(img))
 img = np.squeeze(img, axis=0) #axis = 0에 해당하는 dim을 없애준다.

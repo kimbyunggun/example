@@ -13,12 +13,12 @@ def unpickle(file): #load_data from file 파일로부터 데이터 불러오기
     print('loading file :',file_path) # 다음 경로의 파일 불러오기
     with open(file_path, 'rb') as fo: # 파일 불러오기
         dict = pickle.load(fo, encoding='bytes')
-    cifar_data = dict[b'data'] # np_ file shape (10000,32*32=3072) 10000개의 샘플
+    cifar_data = dict[b'data'] # np_ file shape (10000,3*32*32=3072) 10000개의 샘플
     cifar_labels = dict[b'labels'] #np_file shape(,10000) data별 label (0~9)10개
 
     return cifar_data , cifar_labels
 
-def batch_data(): # 배치 숫자별 데이터 정리
+def arrange_data(): # 배치 숫자별 데이터 정리
 
     batch_data  = {}
     batch_labels = {}
@@ -60,7 +60,7 @@ def load_cifar(i, normalize=True, flatten=True, one_hot_label=False):
     (훈련 이미지, 훈련 레이블), (시험 이미지, 시험 레이블)
     """
     dataset = {} #dataset은 batch에 해당하는 파일의 데이터를 불러와 성분별 key로 나눠 정리한 dict
-    batch_data , batch_labels = batch_data()
+    batch_data , batch_labels = arrange_data()
     dataset['train_img'], dataset['train_label'] = batch_data['%s'%i], batch_labels['%s'%i]
     dataset['test_img'], dataset['test_label'] = unpickle(file = 'test_batch')
 
@@ -75,7 +75,9 @@ def load_cifar(i, normalize=True, flatten=True, one_hot_label=False):
 
     if not flatten:
          for key in ('train_img', 'test_img'):
-            dataset[key] = dataset[key].reshape(-1, 1, 28, 28)
+            dataset[key] = dataset[key].reshape(-1, 3, 32, 32)
+            dataset[key] = np.rollaxis(dataset[key],1,4)
+            dataset[key] = np.squeeze(dataset[key], axis=0)
 
     return (dataset['train_img'], dataset['train_label']), (dataset['test_img'], dataset['test_label'])
 
