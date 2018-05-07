@@ -10,11 +10,11 @@ print(dataset_dir)
 
 def unpickle(file): #load_data from file
     file_path = os.path.join(dataset_dir, file) #불러오려고하는 파일의 path
-    print('loading file :',file_path)
-    with open(file_path, 'rb') as fo:
+    print('loading file :',file_path) # 다음 경로의 파일 불러오기
+    with open(file_path, 'rb') as fo: # 파일 불러오기
         dict = pickle.load(fo, encoding='bytes')
-    cifar_data = dict[b'data'] # np_ file shape (10000,32*32)
-    cifar_labels = dict[b'labels']
+    cifar_data = dict[b'data'] # np_ file shape (10000,32*32=3072) 10000개의 샘플
+    cifar_labels = dict[b'labels'] #np_file shape(,10000) data별 label (0~9)10개
 
     return cifar_data , cifar_labels
 
