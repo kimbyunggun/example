@@ -8,7 +8,7 @@ dataset_dir = os.path.dirname(os.path.abspath(__file__)) #현재 파일의 path�
 
 print(dataset_dir)
 
-def unpickle(file): #load_data from file
+def unpickle(file): #load_data from file 파일로부터 데이터 불러오기
     file_path = os.path.join(dataset_dir, file) #불러오려고하는 파일의 path
     print('loading file :',file_path) # 다음 경로의 파일 불러오기
     with open(file_path, 'rb') as fo: # 파일 불러오기
@@ -18,7 +18,67 @@ def unpickle(file): #load_data from file
 
     return cifar_data , cifar_labels
 
-batch1_data , batch1_labels = unpickle(file = 'data_batch_1') #파일 불러오기
+def batch_data(): # 배치 숫자별 데이터 정리
 
-print(np.shape(batch1_labels))
-print(batch1_labels)
+    batch_data  = {}
+    batch_labels = {}
+    batch_data['1'] ,  batch_labels['1']  = unpickle(file = 'data_batch_1')
+    batch_data['2'] ,  batch_labels['2']  = unpickle(file = 'data_batch_2')
+    batch_data['3'] ,  batch_labels['3']  = unpickle(file = 'data_batch_3')
+    batch_data['4'] ,  batch_labels['4']  = unpickle(file = 'data_batch_4')
+    batch_data['5'] ,  batch_labels['5']  = unpickle(file = 'data_batch_5')
+
+    return batch_data, batch_labels
+
+# batch_data , batch_labels = batch_data()
+#
+# for i in range(1,6):
+#     data_set , label_set = batch_data['%s'%i], batch_labels['%s'%i]
+#
+# print(data_set)
+def _change_one_hot_label(X):
+    T = np.zeros((X.size, 10))
+    for idx, row in enumerate(T):
+        row[X[idx]] = 1
+
+    return T
+
+
+def load_cifar(i, normalize=True, flatten=True, one_hot_label=False):
+    """MNIST 데이터셋 읽기
+
+    Parameters
+    ----------
+    normalize : 이미지의 픽셀 값을 0.0~1.0 사이의 값으로 정규화할지 정한다.
+    one_hot_label :
+        one_hot_label이 True면、레이블을 원-핫(one-hot) 배열로 돌려준다.
+        one-hot 배열은 예를 들어 [0,0,1,0,0,0,0,0,0,0]처럼 한 원소만 1인 배열이다.
+    flatten : 입력 이미지를 1차원 배열로 만들지를 정한다.
+
+    Returns
+    -------
+    (훈련 이미지, 훈련 레이블), (시험 이미지, 시험 레이블)
+    """
+    dataset = {} #dataset은 batch에 해당하는 파일의 데이터를 불러와 성분별 key로 나눠 정리한 dict
+    batch_data , batch_labels = batch_data()
+    dataset['train_img'], dataset['train_label'] = batch_data['%s'%i], batch_labels['%s'%i]
+    dataset['test_img'], dataset['test_label'] = unpickle(file = 'test_batch')
+
+    if normalize:
+        for key in ('train_img', 'test_img'):
+            dataset[key] = dataset[key].astype(np.float32)
+            dataset[key] /= 255.0
+
+    if one_hot_label:
+        dataset['train_label'] = _change_one_hot_label(dataset['train_label'])
+        dataset['test_label'] = _change_one_hot_label(dataset['test_label'])
+
+    if not flatten:
+         for key in ('train_img', 'test_img'):
+            dataset[key] = dataset[key].reshape(-1, 1, 28, 28)
+
+    return (dataset['train_img'], dataset['train_label']), (dataset['test_img'], dataset['test_label'])
+
+
+if __name__ == '__main__':
+    batch_data()
