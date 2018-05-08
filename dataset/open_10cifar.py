@@ -27,15 +27,10 @@ def arrange_data(): # 배치 숫자별 데이터 정리
     batch_data['3'] ,  batch_labels['3']  = unpickle(file = 'data_batch_3')
     batch_data['4'] ,  batch_labels['4']  = unpickle(file = 'data_batch_4')
     batch_data['5'] ,  batch_labels['5']  = unpickle(file = 'data_batch_5')
+    batch_data['t']  , batch_labels['t']   = unpickle(file = 'test_batch')
 
     return batch_data, batch_labels
 
-# batch_data , batch_labels = batch_data()
-#
-# for i in range(1,6):
-#     data_set , label_set = batch_data['%s'%i], batch_labels['%s'%i]
-#
-# print(data_set)
 def _change_one_hot_label(X):
     T = np.zeros((X.size, 10))
     for idx, row in enumerate(T):
@@ -44,7 +39,7 @@ def _change_one_hot_label(X):
     return T
 
 
-def load_cifar(i, normalize=True, flatten=True, one_hot_label=False):
+def load_cifar(i, normalize=True, flatten=True, one_hot_label=False): #i번째 batch
     """MNIST 데이터셋 읽기
 
     Parameters
@@ -61,8 +56,8 @@ def load_cifar(i, normalize=True, flatten=True, one_hot_label=False):
     """
     dataset = {} #dataset은 batch에 해당하는 파일의 데이터를 불러와 성분별 key로 나눠 정리한 dict
     batch_data , batch_labels = arrange_data()
-    dataset['train_img'], dataset['train_label'] = batch_data['%s'%i], batch_labels['%s'%i]
-    dataset['test_img'], dataset['test_label'] = unpickle(file = 'test_batch')
+    dataset['train_img'], dataset['train_label'] = batch_data['%s'%i], np.array(batch_labels['%s'%i])
+    dataset['test_img'], dataset['test_label'] = batch_data['t'], np.array(batch_labels['t'])
 
     if normalize:
         for key in ('train_img', 'test_img'):
