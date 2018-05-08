@@ -56,10 +56,12 @@ def load_cifar(i, normalize=True, flatten=True, one_hot_label=False): #i번째 b
         one_hot_label이 True면、레이블을 원-핫(one-hot) 배열로 돌려준다.
         one-hot 배열은 예를 들어 [0,0,1,0,0,0,0,0,0,0]처럼 한 원소만 1인 배열이다.
     flatten : 입력 이미지를 1차원 배열로 만들지를 정한다.
+    i : batch_datset 고르기 = > 1,2,3,4,5,a
 
     Returns
     -------
     (훈련 이미지, 훈련 레이블), (시험 이미지, 시험 레이블)
+
     """
     dataset = {} #dataset은 batch에 해당하는 파일의 데이터를 불러와 성분별 key로 나눠 정리한 dict
     batch_data , batch_labels = arrange_data()
@@ -85,5 +87,5 @@ def load_cifar(i, normalize=True, flatten=True, one_hot_label=False): #i번째 b
 
 
 if __name__ == '__main__':
-    arrange_data()
-    
+    batch_data, batch_labels = arrange_data()
+    print(batch_data['a'].shape)

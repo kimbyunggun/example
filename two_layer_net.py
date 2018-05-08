@@ -6,8 +6,6 @@ from dataset.open_10cifar import load_cifar
 import numpy as np
 
 
-(x_train, t_train), (x_test, t_test) = load_cifar(i = 'a', flatten=True, normalize=True, one_hot_label=True)
-
 class TwoLayerNet:
 
     def __init__(self, input_size, hidden_size, output_size, weight_init_std=0.01):
