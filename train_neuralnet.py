@@ -7,7 +7,7 @@ from dataset.open_10cifar import load_cifar
 from two_layer_net import TwoLayerNet
 
 # 데이터 읽기
-(x_train, t_train), (x_test, t_test) = load_cifar(i = 1, normalize=True, one_hot_label=True)
+(x_train, t_train), (x_test, t_test) = load_cifar(i = 'a', normalize=True, one_hot_label=True)
 
 network = TwoLayerNet(input_size=3072, hidden_size=50, output_size=10)
 
