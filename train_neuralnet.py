@@ -15,14 +15,15 @@ network = TwoLayerNet(input_size=3072, hidden_size=50, output_size=10)
 iters_num = 10000  # 반복 횟수를 적절히 설정한다.
 train_size = x_train.shape[0]
 batch_size = 100   # 미니배치 크기
-learning_rate = 0.5
+learning_rate = 0.1
 
 train_loss_list = []
 train_acc_list = []
 test_acc_list = []
 
-# 1에폭당 반복 수
-iter_per_epoch = max(train_size / batch_size, 1)
+# 1에폭당 반복 수 (epoch = 훈련데이터를 모두 소진했을 때의 횟수, ex)50000/100 = 1epoch )
+#max() =>반복가능한 자료형을 입력받아 가장 큰 수를 리턴
+iter_per_epoch = max(train_size / batch_size, 1)  #ex)1epoch = 500
 
 for i in range(iters_num):
     # 미니배치 획득
@@ -43,7 +44,7 @@ for i in range(iters_num):
     train_loss_list.append(loss)
 
     # 1에폭당 정확도 계산
-    if i % iter_per_epoch == 0:
+    if i % iter_per_epoch == 0: # ( ex)10000/500 = 20)
         train_acc = network.accuracy(x_train, t_train)
         test_acc = network.accuracy(x_test, t_test)
         train_acc_list.append(train_acc)
