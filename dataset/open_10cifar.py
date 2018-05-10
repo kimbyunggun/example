@@ -30,10 +30,9 @@ def arrange_data(): # 배치 숫자별 데이터 정리
     batch_data['4'] ,  batch_labels['4']  = unpickle(file = 'data_batch_4')
     batch_data['5'] ,  batch_labels['5']  = unpickle(file = 'data_batch_5')
     batch_data['t'] ,  batch_labels['t']  = unpickle(file = 'test_batch')
-    for i in ('1','2','3','4','5'):
-        for x in range(10000):
-            batch_data['a'].append(batch_data[i][x])
-            batch_labels['a'].append(batch_labels[i][x])
+    for i in ('1','2','3','4','5'): #x.extend(a) = x라는 리스트에 a라는 리스트를 더함
+        batch_data['a'].extend(batch_data[i])
+        batch_labels['a'].extend(batch_labels[i])
     batch_data['a'] = np.array(batch_data['a'])
     batch_labels['a'] = np.array(batch_labels['a'])
     return batch_data, batch_labels

@@ -11,7 +11,7 @@ class TwoLayerNet:
     def __init__(self, input_size, hidden_size, output_size, weight_init_std=0.01):
         # 가중치 초기화
         self.params = {} #매개변수저장하는 딕셔너리 변수
-        self.params['W1'] = weight_init_std * np.random.randn(input_size, hidden_size)# np.random.randn(a,b) (a,b)모양의 배열에 임이의 (0,1)까지의 값을 넣어줌
+        self.params['W1'] = weight_init_std * np.random.randn(input_size, hidden_size)# np.random.randn(a,b) (a,b)모양의 배열에 임의의 (0,1)까지의 값을 넣어줌 가우시안 정규분포
         self.params['b1'] = np.zeros(hidden_size)
         self.params['W2'] = weight_init_std * np.random.randn(hidden_size, output_size)
         self.params['b2'] = np.zeros(output_size)

@@ -4,7 +4,7 @@ sys.path.append(os.pardir)  # 부모 디렉터리의 파일을 가져올 수 있
 import numpy as np
 import matplotlib.pyplot as plt
 from dataset.open_10cifar import load_cifar
-from two_layer_net import TwoLayerNet
+from two_layer_net_ch5 import TwoLayerNet #ch5 = using all backward ch4 = using only one backward at gradient
 
 # 데이터 읽기
 (x_train, t_train), (x_test, t_test) = load_cifar(i = 'a', normalize=True, one_hot_label=True)
@@ -27,7 +27,7 @@ iter_per_epoch = max(train_size / batch_size, 1)  #ex)1epoch = 500
 
 for i in range(iters_num):
     # 미니배치 획득
-    batch_mask = np.random.choice(train_size, batch_size)
+    batch_mask = np.random.choice(train_size, batch_size) #np.random.choice(a,b) range(a)에서 b개를 추출해서 array로 만듬
     x_batch = x_train[batch_mask]
     t_batch = t_train[batch_mask]
 
@@ -40,7 +40,7 @@ for i in range(iters_num):
         network.params[key] -= learning_rate * grad[key]
 
     # 학습 경과 기록
-    loss = network.loss(x_batch, t_batch)
+    loss = network.loss(x_batch, t_batch) #cross_entropy_error
     train_loss_list.append(loss)
 
     # 1에폭당 정확도 계산
