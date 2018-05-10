@@ -79,9 +79,9 @@ def load_cifar(i, normalize=True, flatten=True, one_hot_label=False): #i번째 b
 
     if not flatten:
          for key in ('train_img', 'test_img'):
-            dataset[key] = dataset[key].reshape(-1, 3, 32, 32)
-            dataset[key] = np.rollaxis(dataset[key],1,4)
-            dataset[key] = np.squeeze(dataset[key], axis=0)
+            dataset[key] = dataset[key].reshape([-1,3,32,32])
+            # dataset[key] = np.rollaxis(dataset[key],1,4)
+            # dataset[key] = np.squeeze(dataset[key], axis=0) #(32,32,3)
 
     return (dataset['train_img'], dataset['train_label']), (dataset['test_img'], dataset['test_label'])
 
