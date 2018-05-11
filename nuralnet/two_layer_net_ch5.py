@@ -4,7 +4,7 @@ sys.path.append(os.pardir)  # 부모 디렉터리의 파일을 가져올 수 있
 import numpy as np
 from common.layers import *
 from common.gradient import numerical_gradient
-from collections import OrderedDict
+from collections import OrderedDict #딕셔너리에 추가한 순서대로 기억하여 저장한다.
 
 
 class TwoLayerNet:
@@ -57,7 +57,7 @@ class TwoLayerNet:
         return grads
 
     def gradient(self, x, t):
-        # forward
+        # forward, 순방향 값들을 최신의 값으로 갱신시켜준다
         self.loss(x, t)
 
         # backward
