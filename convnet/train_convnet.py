@@ -22,7 +22,7 @@ network = SimpleConvNet(input_dim=(3,32,32),
 
 trainer = Trainer(network, x_train, t_train, x_test, t_test,
                   epochs=max_epochs, mini_batch_size=100,
-                  optimizer='momentum', optimizer_param={'lr': 0.001},
+                  optimizer='adam', optimizer_param={'lr': 0.0001},
                   evaluate_sample_num_per_epoch=1000)
 trainer.train()
 

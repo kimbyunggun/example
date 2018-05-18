@@ -4,16 +4,13 @@ sys.path.append(os.pardir)  # 부모 디렉터리의 파일을 가져올 수 있
 import numpy as np
 from dataset.open_10cifar import load_cifar
 from PIL import Image
-<<<<<<< HEAD
 import random
-=======
->>>>>>> 63eef819dbb2962c02fa331d0e27e1444e7c0fe6
 
 def img_show(img):
     pil_img = Image.fromarray(np.uint8(img),mode='RGB')
     pil_img.show()
 
-(x_train, t_train), (x_test, t_test) = load_cifar(i = 1, flatten=True, normalize=False)
+(x_train, t_train), (x_test, t_test) = load_cifar(i = 'a', flatten=True, normalize=False)
 
 r = random.randint(0,9999)
 img = x_train[r]
