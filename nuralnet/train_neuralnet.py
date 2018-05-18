@@ -12,7 +12,7 @@ from three_layer_net import ThreeLayerNet #ch5 = using all backward ch4 = using 
 network = ThreeLayerNet(input_size=3072, hidden_size1=50,hidden_size2=50, output_size=10)
 
 # 하이퍼파라미터
-iters_num = 10000  # 반복 횟수를 적절히 설정한다.
+iters_num = 20000  # 반복 횟수를 적절히 설정한다.
 train_size = x_train.shape[0]
 batch_size = 100   # 미니배치 크기
 learning_rate = 0.1
