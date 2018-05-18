@@ -4,12 +4,12 @@ sys.path.append(os.pardir)  # 부모 디렉터리의 파일을 가져올 수 있
 import numpy as np
 import matplotlib.pyplot as plt
 from dataset.open_10cifar import load_cifar
-from two_layer_net_ch5 import TwoLayerNet #ch5 = using all backward ch4 = using only one backward at gradient
+from three_layer_net import ThreeLayerNet #ch5 = using all backward ch4 = using only one backward at gradient
 
 # 데이터 읽기
 (x_train, t_train), (x_test, t_test) = load_cifar(i = 'a', normalize=True, one_hot_label=True)
 
-network = TwoLayerNet(input_size=3072, hidden_size=50, output_size=10)
+network = ThreeLayerNet(input_size=3072, hidden_size1=50,hidden_size2=50, output_size=10)
 
 # 하이퍼파라미터
 iters_num = 10000  # 반복 횟수를 적절히 설정한다.
@@ -36,7 +36,7 @@ for i in range(iters_num):
     grad = network.gradient(x_batch, t_batch)
 
     # 매개변수 갱신
-    for key in ('W1', 'b1', 'W2', 'b2'):
+    for key in ('W1', 'b1', 'W2', 'b2','W3','b3'):
         network.params[key] -= learning_rate * grad[key]
 
     # 학습 경과 기록

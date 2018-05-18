@@ -33,6 +33,7 @@ class SimpleConvNet:
         filter_stride = conv_param['stride']
         input_size = input_dim[1]
         conv_output_size = (input_size - filter_size + 2*filter_pad) / filter_stride + 1
+        #pooling의 윈도우 크기와 스트라이트는 같은 값 을 가지는 것으로 설정
         pool_output_size = int(filter_num * (conv_output_size/2) * (conv_output_size/2))
 
         # 가중치 초기화
