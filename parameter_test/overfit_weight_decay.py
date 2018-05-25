@@ -16,11 +16,11 @@ x_train = x_train[:300]
 t_train = t_train[:300]
 
 # weight decay（가중치 감쇠） 설정 =======================
-#weight_decay_lambda = 0 # weight decay를 사용하지 않을 경우
-weight_decay_lambda = 0.1
+weight_decay_lambda = 0  #weight decay를 사용하지 않을 경우
+# weight_decay_lambda = 0.1
 # ====================================================
 
-network = MultiLayerNet(input_size=784, hidden_size_list=[100, 100, 100, 100, 100, 100], output_size=10,
+network = MultiLayerNet(input_size=3072, hidden_size_list=[100, 100, 100, 100, 100, 100], output_size=10,
                         weight_decay_lambda=weight_decay_lambda)
 optimizer = SGD(lr=0.01) # 학습률이 0.01인 SGD로 매개변수 갱신
 

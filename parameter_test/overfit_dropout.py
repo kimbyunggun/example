@@ -15,11 +15,11 @@ x_train = x_train[:300]
 t_train = t_train[:300]
 
 # 드롭아웃 사용 유무와 비울 설정 ========================
-use_dropout = True  # 드롭아웃을 쓰지 않을 때는 False
+use_dropout = False  # 드롭아웃을 쓰지 않을 때는 False
 dropout_ratio = 0.2
 # ====================================================
 
-network = MultiLayerNetExtend(input_size=784, hidden_size_list=[100, 100, 100, 100, 100, 100],
+network = MultiLayerNetExtend(input_size=3072, hidden_size_list=[100, 100, 100, 100, 100, 100],
                               output_size=10, use_dropout=use_dropout, dropout_ration=dropout_ratio)
 trainer = Trainer(network, x_train, t_train, x_test, t_test,
                   epochs=301, mini_batch_size=100,
