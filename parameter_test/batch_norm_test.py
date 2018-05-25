@@ -20,9 +20,9 @@ learning_rate = 0.01
 
 
 def __train(weight_init_std):
-    bn_network = MultiLayerNetExtend(input_size=784, hidden_size_list=[100, 100, 100, 100, 100], output_size=10,
+    bn_network = MultiLayerNetExtend(input_size=3072, hidden_size_list=[100, 100, 100, 100, 100], output_size=10,
                                     weight_init_std=weight_init_std, use_batchnorm=True)
-    network = MultiLayerNetExtend(input_size=784, hidden_size_list=[100, 100, 100, 100, 100], output_size=10,
+    network = MultiLayerNetExtend(input_size=3072, hidden_size_list=[100, 100, 100, 100, 100], output_size=10,
                                 weight_init_std=weight_init_std)
     optimizer = SGD(lr=learning_rate)
 
@@ -57,10 +57,10 @@ def __train(weight_init_std):
 
 
 # 그래프 그리기==========
-weight_scale_list = np.logspace(0, -4, num=16)
+weight_scale_list = np.logspace(0, -4, num=16) #logscale로 1~10^-4까지 16번으로 나눠서 배열울 만듬
 x = np.arange(max_epochs)
 
-for i, w in enumerate(weight_scale_list):
+for i, w in enumerate(weight_scale_list): #인덱스 값을 포함하는 enumerate 객체를 리턴한다.
     print( "============== " + str(i+1) + "/16" + " ==============")
     train_acc_list, bn_train_acc_list = __train(w)
 
