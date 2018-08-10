@@ -7,7 +7,7 @@ from dataset.open_10cifar import load_cifar
 from deep_convnet import DeepConvNet
 from common.trainer import Trainer
 
-(x_train, t_train), (x_test, t_test) = load_cifar(i = 'a',flatten=False)
+(x_train, t_train), (x_test, t_test) = load_cifar(i = '1',flatten=False)
 
 network = DeepConvNet()
 trainer = Trainer(network, x_train, t_train, x_test, t_test,
